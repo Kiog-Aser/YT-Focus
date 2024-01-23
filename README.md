@@ -179,14 +179,10 @@ Entering the respective key, the user can :
 
 |key| Action|
 |--|--|
-|f|Browse their Subscriptions __Feed__.|
-|t|Browse YouTube __Trending__ Feed.
+|f|Browse their Subscriptions __Feed__. (Not working yet)|
 |s|__Search__ for a key word/phrase|
-|r|__Repeat__ previous selection.|
 |c|Select a Subscribed __Channel Feed__.|
-|l|Browse __Liked__ Videos.|
 |h|Browse __Watch History__.|
-|j|Browse __Search History__.|
 |m|Open __Miscellaneous Menu__.|
 |q|__Quit__ the program.|
 
