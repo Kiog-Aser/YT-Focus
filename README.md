@@ -228,8 +228,6 @@ Once a video is selected, the user is prompted to __select action__:
  
 * Quit ❌
 
-![image7](screenshots/rofi_select_action.png)
-
 Audio & Video files will be downloaded at  `~/Desktop/`
 
 ### Miscellaneous Menu
@@ -242,35 +240,10 @@ Entering the respective key, the user can :
 |key| Action|
 |--|--|
 |P|__Set Up__ Preferences|
-|l|__LIKE__ a video.|
-|L|__UNLIKE__ a video.|
 |I|__Import subscriptions__ from YouTube.|
 |n|__Subscribe__ to a new channel.|
 |u|__Unsubscribe__ to a new channel.|
-|H|Clear __watch history__.|
-|S|Clear __search  history__.|
-|T|Clear __thumbnail cache.__|
 |q|__Quit__ this menu, __Return__ to Main Menu.
-
-### Subscribing to a new channel
-
-Selecting the __n option__ of the Miscellaneous Menu, the user can subscribe to a new channel.
-
-Initially, the user is asked to enter a keyword / keyphrase to search channels with.
-
-Channel selection then is made with __fzf__:
-
-![image 9](screenshots/fzf2.png){height=320}
-
-* In the __n & u options__ of the Miscellaneous Menu (subcribe/unsubscribe to a channel), after a selection, the user will be asked to sync the changes manually to their YouTube account.
-
-* __Liking/Unliking a video and unsubscribing from a channel options__ are done with __rofi__:
-
-![image 10](screenshots/misc_l.png){height=320}
-
-![image 11](screenshots/misc_L.png){height=320}
-
-![image 12](screenshots/misc_u.png){height=320}
 
 ---
 
@@ -282,8 +255,16 @@ Channel selection then is made with __fzf__:
   * the configuration text file will be created in `~/.config/magic-tape/`
 2. The action selection can be either with `rofi`, or `fzf` (if the user wants to go full TUI).This can be configured during the **P option** of the **misc menu**.
 3. `dmenu` is also added as an action selector. This can be configured during the **P option** of the **misc menu**.
-4. There is now a **duration filter prompt** in the **search** and **search history** option:
+4. There is now a **duration filter prompt** in the **search** option which allows you to:
 
-![filter.png](screenshots/filter.png)
+- Not add any filter
 
+- Exclude shorts (semi working)
+
+- Only show videos with a duration of 0-4 mins
+
+- Only show videos with a duration of 4-20 mins
+
+- Only show videos with a duration of 20 mins +
+  
 ---
