@@ -203,7 +203,7 @@ Entering the respective key, the user can :
 
 Video selection is done with __fzf__:
 
-![image 6](screenshots/choosevideo.png){height=450}
+![image 6](screenshots/choosevideo.png)
 
 ### Search shortcuts
 
@@ -224,34 +224,18 @@ Once a video is selected, the user is prompted to __select action__:
 
 * Play ⭐⭐⭐Best Audio
 
-* Download Video 🔽
-
-* Download Audio 🔽
-
-* Like Video ❤️
-
 * Browse Feed of channel that uploaded the video  📺
-
-
-* Subscribe to the channel that uploaded the video 📋
-
-
-* Open in browser 🌐
-
-
-* Copy link 🔗
-
-
+ 
 * Quit ❌
 
-![image7](screenshots/rofi_select_action.png){height=320}
+![image7](screenshots/rofi_select_action.png)
 
 Audio & Video files will be downloaded at  `~/Desktop/`
 
 ### Miscellaneous Menu
 The __m option__ of the Main Menu opens up the __Miscellaneous Menu__:
 
-![image 8](screenshots/2.png){height=320}
+![image 8](screenshots/2.png)
 
 Entering the respective key, the user can :
 
