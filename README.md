@@ -176,7 +176,7 @@ The user user can do that by navigating to the Miscellaneous Menu _(option m)_, 
 ### Main Menu
 Once the program is run, the user is presented with the __Main Menu:__
 
-![image 1](screenshots/1.png){height=320}
+![image 1](screenshots/homemenu.png)
 
 Entering the respective key, the user can :
 
