@@ -1,5 +1,6 @@
 # YT-Focus
 A better way to watch youtube. No ads, no tracking and no distractions. Pure focus and education (or entertainment).
+YT-Focus is a CLI that allows people to find and watch youtube videos completely locally (on their device) without ever having to open the youtube website.
 
 A fork of ['Magic Tape'](https://gitlab.com/christosangel/magic-tape/-/tree/main?ref_type=heads) by Christos Angelopoulos
 
