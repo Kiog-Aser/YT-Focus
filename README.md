@@ -186,7 +186,7 @@ Entering the respective key, the user can :
 |m|Open __Miscellaneous Menu__.|
 |q|__Quit__ the program.|
 
-* In order for the __f & t__ option to function, the user must already be logged in to their browser.
+* In order for the __f__ option to function, the user must already be logged in to their browser.
 
 * Selecting __channel feed__, Browsing __watch history, search history & liked videos__ is done with __rofi__:
 
