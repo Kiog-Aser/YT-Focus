@@ -3,26 +3,17 @@ A better way to watch youtube. No ads, no tracking and no distractions. Pure foc
 
 A fork of ['Magic Tape'](https://gitlab.com/christosangel/magic-tape/-/tree/main?ref_type=heads) by Christos Angelopoulos
 
+The original version has more features, but I want a more minimalistic and 'focused' approach.
 
-With magic-tape, through the __main menu__, the user can
+With YT Focus, through the __main menu__, the user can
 
-  * Browse  videos from __subscriptions__.
-
-  * Browse videos suggested by __YT algorithm__.
-
-  * Browse through __trending__ video feed.
+  * Browse  videos from __subscriptions__. (Not Working Currently)
 
   * make a video __search__, using keywords or phrases.
 
   * Watch a previously watched video (__watch history__).
 
   * Browse videos from a __subcsribed channel__.
-
-  * Watch a __liked__ video.
-
-  * Repeat the __previous__ selection.
-
-  * Repeat a previous search (__search history__).
 
   * __Watch/download__ video/audio content, in various formats.
 
@@ -32,15 +23,9 @@ Through the __miscellaneous menu__ the user can
 
   * __Set up Preferences__ (configuration).
 
-  * __Like__ / __Unlike__ a video.
-
-  * __Synchronize__ the above actions with their YouTube account.
-
   * __Import subscriptions__ from YouTube.
 
   * __Subscribe__ to/ __Unsubscribe__ from a channel.
-
-  * __Clear__ their watch/search __history__, __liked__ videos, thumbnail __cache__.
 
 
 ## Dependencies
@@ -82,8 +67,6 @@ Regarding image support, it can either be achived with
 sudo apt install kitty
 ```
 
-
-
 with
 
 * [ueberzug](https://github.com/seebye/ueberzug)
@@ -91,14 +74,11 @@ with
 
 or with
 
-
 * [chafa](https://github.com/hpjansson/chafa)
-
 
 ```
 sudo apt install chafa
 ```
-
 
 To install these dependencies, run the following command:
 
