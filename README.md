@@ -204,7 +204,7 @@ Entering the respective key, the user can :
 Video selection is done with __fzf__:
 
 ![image 6](screenshots/choosevideo.png)
-Not that I am not using thumbnails here.
+Note that I am not using thumbnails here.
 
 ### Search shortcuts
 
