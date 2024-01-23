@@ -1,7 +1,7 @@
 # YT-Focus
 A better way to watch youtube. No ads, no tracking and no distractions. Pure focus and education (or entertainment).
 
-A fork of [https://gitlab.com/christosangel/magic-tape/-/tree/main?ref_type=heads]['Magic Tape'] by Christos Angelopoulos
+A fork of ['Magic Tape'](https://gitlab.com/christosangel/magic-tape/-/tree/main?ref_type=heads) by Christos Angelopoulos
 
 
 With magic-tape, through the __main menu__, the user can
