@@ -197,20 +197,13 @@ Entering the respective key, the user can :
 
 * Selecting __channel feed__, Browsing __watch history, search history & liked videos__ is done with __rofi__:
 
-![image 2](screenshots/rofi_c_option.png){height=320}
-
-![image 3](screenshots/rofi_h_option.png){height=320}
-
-![image 4](screenshots/rofi_l_option.png){height=320}
-
-![image 5](screenshots/rofi_j_option.png){height=320}
 
 
 ### Video selection
 
 Video selection is done with __fzf__:
 
-![image 6](screenshots/fzf1.png){height=450}
+![image 6](screenshots/choosevideo.png){height=450}
 
 ### Search shortcuts
 
