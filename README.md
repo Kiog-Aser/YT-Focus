@@ -102,20 +102,17 @@ sudo apt install dmenu
 ## Install
 
 ```
-git clone https://gitlab.com/christosangel/magic-tape.git
+git clone [https://gitlab.com/christosangel/magic-tape.git](https://github.com/Kiog-Aser/YT-Focus.git)
 
 cd magic-tape/
-
 ```
 
 To run the script from any directory, it has to be made executable, and then copied to `$PATH`,:
 
 ```
-
 chmod +x magic-tape.sh
 
 cp magic-tape.sh ~/.local/bin/
-
 ```
 
 After that, the user must run this command in order to create the necessary directories:
