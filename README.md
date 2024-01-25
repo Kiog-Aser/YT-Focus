@@ -6,6 +6,8 @@ A fork of ['Magic Tape'](https://gitlab.com/christosangel/magic-tape/-/tree/main
 
 The original version has more features, but I want a more minimalistic and 'focused' approach.
 
+This branch has an updated script for people who don't want to use thumbnails. The script doesn't download any thumnails, which the normal does.
+
 With YT Focus, through the __main menu__, the user can
 
   * Browse  videos from __subscriptions__. (Not Working Currently)
