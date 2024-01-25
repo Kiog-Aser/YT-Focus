@@ -5,7 +5,6 @@
 # |    |     |  | \(  <_> )   |    | |  |  / \_\ \  ___/ 
 # |____|     |__|   \____/    |____| |____/|___  /\___  >
 #                                              \/     \/ 
-# A fork of 'magic-tape' from Christos Angelopoulos
 function search_filter() {
     FILT_PROMPT="";
     FILT_PROMPT="$(echo -e "No Duration Filter \n🚫 Exclude Shorts\n☕ Duration up to 4 mins\n☕☕ Duration between 4 and 20 mins\n☕☕☕ Duration longer than 20 mins\n📋 Search for playlist"|eval "$PREF_SELECTOR"" \"Select Filter \"")";
@@ -46,17 +45,7 @@ function new_subscription ()
   jq '.title' $HOME/.cache/magic-tape/json/channel_search.json|sed 's/"//g'>$HOME/.cache/magic-tape/search/channels/titles.txt;
   jq '.description' $HOME/.cache/magic-tape/json/channel_search.json|sed 's/"//g'>$HOME/.cache/magic-tape/search/channels/descriptions.txt;
   jq '.playlist_count' $HOME/.cache/magic-tape/json/channel_search.json|sed 's/"//g'>$HOME/.cache/magic-tape/search/channels/subscribers.txt;
-  jq '.thumbnails[1].url' $HOME/.cache/magic-tape/json/channel_search.json|sed 's/"//g'>$HOME/.cache/magic-tape/search/channels/img_urls.txt;
 
-  cat /dev/null>$HOME/.cache/magic-tape/search/channels/thumbnails.txt;
-  i=1;
-   while [ $i -le $(cat $HOME/.cache/magic-tape/search/channels/ids.txt|wc -l) ];
-   do  echo "url = \"https:""$(cat $HOME/.cache/magic-tape/search/channels/img_urls.txt|head -$i|tail +$i)\"">>$HOME/.cache/magic-tape/search/channels/thumbnails.txt;
-   echo "output = \"$HOME/.cache/magic-tape/jpg/$(cat $HOME/.cache/magic-tape/search/channels/ids.txt|head -$i|tail +$i).jpg\"">>$HOME/.cache/magic-tape/search/channels/thumbnails.txt;
-   ((i++));
-  done;
-  echo -e "${Green}Downloading channel thumbnails...${normal}";
-  curl -s -K $HOME/.cache/magic-tape/search/channels/thumbnails.txt&echo -e "${Yellow}${bold}[Background downloading channel thumbnails]${normal}";
   if [ $ITEM -gt 1 ];then echo "Previous Page">>$HOME/.cache/magic-tape/search/channels/titles.txt;fi;
   if [ $(cat $HOME/.cache/magic-tape/search/channels/ids.txt|wc -l) -ge $LIST_LENGTH ];then echo "Next Page">>$HOME/.cache/magic-tape/search/channels/titles.txt;fi;
   echo "Abort Selection">>$HOME/.cache/magic-tape/search/channels/titles.txt;
@@ -221,23 +210,13 @@ function import_subscriptions()
   echo -e "${Green}Download Complete.${normal}";
   jq '.id' $HOME/.cache/magic-tape/json/$new_subs|sed 's/"//g'>$HOME/.cache/magic-tape/search/channels/channel_ids.txt;
   jq '.title' $HOME/.cache/magic-tape/json/$new_subs|sed 's/"//g'>$HOME/.cache/magic-tape/search/channels/channel_names.txt;
-  jq '.thumbnails[1].url' $HOME/.cache/magic-tape/json/$new_subs|sed 's/"//g'>$HOME/.cache/magic-tape/search/channels/image_urls.txt;
-  cat /dev/null>$HOME/.cache/magic-tape/search/channels/thumbnails.txt;
   cp $HOME/.cache/magic-tape/subscriptions/subscriptions.txt $HOME/.cache/magic-tape/subscriptions/subscriptions-$(date +%F).bak.txt;
   cat /dev/null>$HOME/.cache/magic-tape/subscriptions/subscriptions.txt;
   i=1;
   while [ $i -le $(cat $HOME/.cache/magic-tape/search/channels/channel_ids.txt|wc -l) ];
   do echo "$(cat $HOME/.cache/magic-tape/search/channels/channel_ids.txt|head -$i|tail +$i) $(cat $HOME/.cache/magic-tape/search/channels/channel_names.txt|head -$i|tail +$i)">>$HOME/.cache/magic-tape/subscriptions/subscriptions.txt;
-   img_path="$HOME/.cache/magic-tape/subscriptions/jpg/$(cat $HOME/.cache/magic-tape/search/channels/channel_ids.txt|head -$i|tail +$i).jpg";
-   if [ ! -f  "$img_path" ];
-   then echo "url = \"https:$(cat $HOME/.cache/magic-tape/search/channels/image_urls.txt|head -$i|tail +$i)\"">>$HOME/.cache/magic-tape/search/channels/thumbnails.txt;
-    echo "output = \"$img_path\"">>$HOME/.cache/magic-tape/search/channels/thumbnails.txt;
-   fi;
    ((i++));
   done;
-  echo -e "${Green}Downloading thumbnails...${normal}";
-  curl -s -K $HOME/.cache/magic-tape/search/channels/thumbnails.txt;
-  echo -e "${Green}Thumbnail download complete.${normal}";
   echo -e "${Green}Your magic-tape subscriptions are now updated.\nA backup copy of your old subscriptions is kept in\n${Yellow}${bold}$HOME/.cache/magic-tape/subscriptions/subscriptions-$(date +%F).bak.txt${normal}\n${Green}Press any key to return to the miscellaneous menu: ${normal}";
   read -N 1  imp2;clear;mv $HOME/.cache/magic-tape/json/$new_subs $HOME/.local/share/Trash/files/;
  fi;
@@ -448,7 +427,6 @@ function get_data ()
  jq '.view_count' $HOME/.cache/magic-tape/json/video_search.json|sed 's/\\"/⁆/g;s/"//g;s/⁆/"/g'>$HOME/.cache/magic-tape/search/video/views.txt;
  jq '.channel_id' $HOME/.cache/magic-tape/json/video_search.json|sed 's/\\"/⁆/g;s/"//g;s/⁆/"/g'>$HOME/.cache/magic-tape/search/video/channel_ids.txt;
  jq '.channel' $HOME/.cache/magic-tape/json/video_search.json|sed 's/\\"/⁆/g;s/"//g;s/⁆/"/g'>$HOME/.cache/magic-tape/search/video/channel_names.txt;
- jq '.thumbnails[0].url' $HOME/.cache/magic-tape/json/video_search.json|sed 's/\\"/⁆/g;s/"//g;s/⁆/"/g'|sed 's/\.jpg.*$/\.jpg/g'>$HOME/.cache/magic-tape/search/video/image_urls.txt;
  jq '.live_status' $HOME/.cache/magic-tape/json/video_search.json>$HOME/.cache/magic-tape/search/video/live_status.txt;
  epoch="$(jq '.epoch' $HOME/.cache/magic-tape/json/video_search.json|head -1)";
  Y_epoch="$(date --date=@$epoch +%Y|sed 's/^0*//')";
@@ -458,16 +436,11 @@ function get_data ()
  then jq '.playlist_uploader' $HOME/.cache/magic-tape/json/video_search.json|sed 's/"//g'>$HOME/.cache/magic-tape/search/video/channel_names.txt;
   jq '.playlist_uploader_id' $HOME/.cache/magic-tape/json/video_search.json|sed 's/"//g'>$HOME/.cache/magic-tape/search/video/channel_ids.txt;
   fi;
- cat /dev/null>$HOME/.cache/magic-tape/search/video/thumbnails.txt;
  cat /dev/null>$HOME/.cache/magic-tape/search/video/shared.txt;
  i=1;
  while [ $i -le $(cat $HOME/.cache/magic-tape/search/video/titles.txt|wc -l) ];
  do img_path="$HOME/.cache/magic-tape/jpg/img-$(cat $HOME/.cache/magic-tape/search/video/ids.txt|head -$i|tail +$i).jpg";
-  if [ ! -f  "$img_path" ];
-  then echo "url = \"$(cat $HOME/.cache/magic-tape/search/video/image_urls.txt|head -$i|tail +$i)\"">>$HOME/.cache/magic-tape/search/video/thumbnails.txt;
-   echo "output = \"$img_path\"">>$HOME/.cache/magic-tape/search/video/thumbnails.txt;
-   cp $HOME/.cache/magic-tape/png/wait.png $HOME/.cache/magic-tape/jpg/img-$(cat $HOME/.cache/magic-tape/search/video/ids.txt|head -$i|tail +$i).jpg
-  fi;
+
   ### parse approx date
   timestamp="$(cat $HOME/.cache/magic-tape/search/video/timestamps.txt|head -$i|tail +$i)";
   if [[ "$timestamp" != "null" ]];then Y_timestamp="$(date --date=@$timestamp +%Y|sed 's/^0*//')";
@@ -486,8 +459,6 @@ function get_data ()
   echo $approximate_date>>$HOME/.cache/magic-tape/search/video/shared.txt;
   ((i++));
  done;
- echo -e "${Green}Downloading thumbnails...${normal}";
- curl -s -K $HOME/.cache/magic-tape/search/video/thumbnails.txt& echo -e "${Green}Background thumbnails download.${normal}";
  if [ $ITEM -gt 1 ];then echo "Previous Page">>$HOME/.cache/magic-tape/search/video/titles.txt;fi;
  if [ $(cat $HOME/.cache/magic-tape/search/video/ids.txt|wc -l) -ge $LIST_LENGTH ];then echo "Next Page">>$HOME/.cache/magic-tape/search/video/titles.txt;fi;
  echo "Abort Selection">>$HOME/.cache/magic-tape/search/video/titles.txt;
@@ -592,7 +563,7 @@ function download_audio ()
  cd $HOME/Desktop;
  echo -e "${Green}Downloading audio  of${Yellow}${bold} $play_now...${normal}";
  notify-send -t $NOTIF_DELAY -i $HOME/.cache/magic-tape/png/download.png "Audio Downloading: $TITLE";
- yt-dlp --extract-audio --audio-quality 0 --embed-thumbnail "$play_now";
+ yt-dlp --extract-audio --audio-quality 0 "$play_now";
  notify-send -t $NOTIF_DELAY -i $HOME/.cache/magic-tape/png/logo1.png "Audio Downloading of $TITLE is now complete.";
  echo -e "${Green}Audio Downloading of${Yellow}${bold} $TITLE ${Green}is now complete.${normal}";
  sleep $DIALOG_DELAY;
