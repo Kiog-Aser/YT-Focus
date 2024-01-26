@@ -10,7 +10,7 @@ The 'no-thumbnail' branch has an updated script for people who don't want to use
 
 With YT Focus, through the __main menu__, the user can
 
-  * Browse  videos from __subscriptions__. (Not Working Currently)
+  * Browse  videos from __subscriptions__. 
 
   * make a video __search__, using keywords or phrases.
 
