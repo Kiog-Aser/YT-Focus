@@ -105,7 +105,7 @@ sudo apt install dmenu
 ## Install
 
 ```
-git clone [https://gitlab.com/christosangel/magic-tape.git](https://github.com/Kiog-Aser/YT-Focus.git)
+git clone https://github.com/Kiog-Aser/YT-Focus.git
 
 cd magic-tape/
 ```
