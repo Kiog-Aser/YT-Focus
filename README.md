@@ -107,7 +107,7 @@ sudo apt install dmenu
 ```
 git clone https://github.com/Kiog-Aser/YT-Focus.git
 
-cd magic-tape/
+cd YT-Focus/
 ```
 
 To run the script from any directory, it has to be made executable, and then copied to `$PATH`,:
