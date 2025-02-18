@@ -258,8 +258,6 @@ function main_menu() {
     done
 }
 
-}
-
 # Check for required dependencies
 for cmd in yt-dlp mpv fzf terminal-notifier; do
     if ! command -v "$cmd" &> /dev/null; then
