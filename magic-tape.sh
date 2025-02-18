@@ -627,7 +627,7 @@ fi;
 PREF_SELECTOR="$(grep 'Preferred_selector' $HOME/.config/magic-tape/config.txt|sed 's/Preferred_selector://')";
 PREF_BROWSER="$(grep 'Preferred_browser' $HOME/.config/magic-tape/config.txt|awk '{print $2}')";
 BROWSER="$(grep 'Browser' $HOME/.config/magic-tape/config.txt|awk '{print $2}')";
-LIST_LENGTH="$(grep 'List_Length' $HOME/.config/magic-tape/config.txt|awk '{print $2}')";
+LIST_LENGTH="$(grep 'List_Length' $HOME/.config/magic-tape/config.txt | awk '{print $2}')"
 DIALOG_DELAY="$(grep 'Terminal_message_duration' $HOME/.config/magic-tape/config.txt|awk '{print $2}')";
 NOTIF_DELAY="$(grep 'Notification_duration' $HOME/.config/magic-tape/config.txt|awk '{print $2}')";
 IMAGE_SUPPORT="$(grep 'Image_support' $HOME/.config/magic-tape/config.txt|awk '{print $2}')";
