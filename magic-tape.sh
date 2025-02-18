@@ -654,10 +654,10 @@ db="$(echo -e "       ${Yellow}${bold}( \/ )(_  _)  ( ___)(  _  )/ __)(  )(  )/ 
 --header-first \
 --expect=A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,1,2,3,4,5,6,7,8,9,0 \
 --preview='pic=$(head -1 $HOME/.cache/magic-tape/search/video/preview_pic.txt);if [ $pic -eq 0 ];\
- then if [[ "$IMAGE_SUPPORT" == "kitty" ]];then draw_preview 1 1 6 6 $HOME/.cache/magic-tape/png/logo1.png;fi;\
-  if [[ "$IMAGE_SUPPORT" == "uberzug" ]];then draw_preview 1 1 8 8 $HOME/.cache/magic-tape/png/magic-tape.png;fi;\
-  echo "1">$HOME/.cache/magic-tape/search/video/preview_pic.txt;\
- fi'
+then if [[ "$IMAGE_SUPPORT" == "kitty" ]];then draw_preview 1 1 6 6 $HOME/.cache/magic-tape/png/logo1.png;fi;\
+if [[ "$IMAGE_SUPPORT" == "uberzug" ]];then draw_preview 1 1 8 8 $HOME/.cache/magic-tape/png/magic-tape.png;fi;\
+echo "1">$HOME/.cache/magic-tape/search/video/preview_pic.txt;\
+fi'
 )"
 db="$(echo $db|awk '{print $1}')"
  case $db in
