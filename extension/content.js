@@ -1,3 +1,15 @@
+function getFocusAuthuser() {
+  return new URLSearchParams(location.search).get('authuser');
+}
+
+function navigateInFocus(path, authuser = getFocusAuthuser()) {
+  const url = new URL(path, location.origin);
+  if (authuser !== null && url.origin === location.origin) {
+    url.searchParams.set('authuser', authuser);
+  }
+  window.location.href = url.href;
+}
+
 // --- Minimal YouTube Overlay UI ---
 function createMinimalOverlay() {
   // Global state
@@ -56,11 +68,13 @@ function createMinimalOverlay() {
   }
   container.innerHTML = '';
 
+  const authuser = getFocusAuthuser();
+  const accountLabel = /^[0-4]$/.test(authuser) ? Number(authuser) + 1 : 'default';
   const headerHTML = `<pre style="color:#f9e2af;font-size:1.2em;margin:0 0 0.4em 0; text-align:center;">(\\_/)( _ )( ___)( _ )/ __)  F O C U S
  \\ /  )(  _  )(__ (( (__   M O D E
  (__) (__) (____)\\___/\\___)
 </pre>
-<div style="color:#89b4fa;margin:0 0 0.5em 0;text-align:center;font-size:0.8em;">j/k↑↓ move • Enter open • 1-9 quick • s search • q quit • f re-enter</div>`;
+<div style="color:#89b4fa;margin:0 0 0.5em 0;text-align:center;font-size:0.8em;">acct ${accountLabel} • 1-5 switch • Shift+1-5 / 6-9 quick • j/k↑↓ move • Enter open • s search • q quit • f re-enter</div>`;
 
   const listContainerId = 'yt-focus-list';
   let listContainer = document.getElementById(listContainerId);
@@ -1116,7 +1130,7 @@ function createMinimalOverlay() {
 
   listContainer.onclick = e => {
     const d = e.target.closest('[data-i]');
-    if (!d) return; state.selectedIndex = parseInt(d.dataset.i,10)||0; renderList(); window.location.href = state.videos[state.selectedIndex].url; };
+    if (!d) return; state.selectedIndex = parseInt(d.dataset.i,10)||0; renderList(); navigateInFocus(state.videos[state.selectedIndex].url); };
   // Wheel near bottom triggers maybeLoadMoreUnderlying
   listContainer.addEventListener('wheel', () => {
     if (!state.videos) return;
@@ -1144,7 +1158,7 @@ function createMinimalOverlay() {
   if (window.__ytFocus) window.__ytFocus.searchOpen = true;
   function close(){ backdrop.remove(); if (window.__ytFocus) window.__ytFocus.searchOpen = false; }
     backdrop.addEventListener('click', e=>{ if(e.target===backdrop) close(); });
-    input.addEventListener('keydown', ev => { if (ev.key==='Enter'){ const q=input.value.trim(); close(); if(q) window.location.href='/results?search_query='+encodeURIComponent(q);} else if (ev.key==='Escape'){ close(); }});
+    input.addEventListener('keydown', ev => { if (ev.key==='Enter'){ const q=input.value.trim(); close(); if(q) navigateInFocus('/results?search_query='+encodeURIComponent(q));} else if (ev.key==='Escape'){ close(); }});
   }
 
   // Always (re)attach key handler to ensure navigation works
@@ -1162,8 +1176,14 @@ function createMinimalOverlay() {
     // Ignore when focus is inside input/textarea/contentEditable
     const tgt = ev.target;
     if (tgt && (tgt.tagName === 'INPUT' || tgt.tagName === 'TEXTAREA' || tgt.isContentEditable)) return;
+    if (ev.ctrlKey || ev.metaKey || ev.altKey || ev.isComposing) return;
     const vids = state.videos||[];
-    if (ev.key==='j' || ev.key==='ArrowDown'){
+    const quickKey = ev.shiftKey ? /^Digit([1-5])$/.exec(ev.code)?.[1] : /^[6-9]$/.exec(ev.key)?.[0];
+    if (!ev.shiftKey && /^[1-5]$/.test(ev.key)) {
+      ev.preventDefault();
+      if (!ev.repeat) navigateInFocus('/', String(Number(ev.key) - 1));
+    }
+    else if (ev.key==='j' || ev.key==='ArrowDown'){
       if (state.selectedIndex < vids.length-1) {
         state.selectedIndex++;
         renderList();
@@ -1175,10 +1195,13 @@ function createMinimalOverlay() {
       ev.preventDefault();
     }
     else if (ev.key==='k' || ev.key==='ArrowUp'){ state.selectedIndex=Math.max(0,state.selectedIndex-1); renderList(); ev.preventDefault(); }
-    else if (/^[1-9]$/.test(ev.key)){ const n=parseInt(ev.key,10)-1; if(vids[n]) window.location.href=vids[n].url; }
-    else if (ev.key==='Enter'){ if(vids[state.selectedIndex]) window.location.href=vids[state.selectedIndex].url; }
+    else if (quickKey){
+      const n = Number(quickKey) - 1;
+      if (vids[n]) { ev.preventDefault(); navigateInFocus(vids[n].url); }
+    }
+    else if (ev.key==='Enter'){ if(vids[state.selectedIndex]) navigateInFocus(vids[state.selectedIndex].url); }
     else if (ev.key==='s'){ ev.preventDefault(); ev.stopPropagation(); openSearchPrompt(); }
-    else if (ev.key==='h'){ window.location.href='/'; }
+    else if (ev.key==='h'){ navigateInFocus('/'); }
     else if (ev.key==='q'){ if (state.enableQuitHotkey !== false) { const o=document.getElementById('yt-minimal-overlay'); if(o) o.remove(); const root=document.getElementById('ytd-app'); if(root) root.style.display=''; window.removeEventListener('keydown', state.keyHandler); state.keyHandler=null; state.overlayDismissed=true; } }
     else if (ev.key==='d'){ state.debugOverlay = !state.debugOverlay; renderList(); }
     else if (ev.key==='l'){ maybeLoadMoreUnderlying(); }
@@ -1424,12 +1447,12 @@ function applyMinimalWatchPage() {
         e.preventDefault();
       }
       else if (e.key === 's') {
-        window.location.href = '/';
+        navigateInFocus('/');
       }
       // Subscription feed shortcut
       else if (e.key === 'b') {
         console.log('[yt-focus] b key detected, current page:', location.pathname);
-        window.location.href = '/feed/subscriptions';
+        navigateInFocus('/feed/subscriptions');
       }
       // Additional playback speed shortcuts
       else if (e.key === '1') {
@@ -1474,7 +1497,7 @@ if (!window.__ytFocus.globalReEntry) {
     // Handle subscription shortcut globally
     if (e.key === 'b' && !document.getElementById('yt-minimal-overlay')) {
       console.log('[yt-focus] Global b key detected, going to subscriptions');
-      window.location.href = '/feed/subscriptions';
+      navigateInFocus('/feed/subscriptions');
       return;
     }
 
