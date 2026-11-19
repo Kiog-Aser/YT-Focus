@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "YouTube Single Video Only",
+  "version": "1.1",
+  "description": "Prevents YouTube from playing playlists or radio, disables autoplay, and enables a focused browsing UI.",
+  "permissions": ["scripting", "tabs", "webNavigation", "storage"],
+  "host_permissions": ["https://www.youtube.com/*"],
+  "action": {
+    "default_title": "YT Focus Settings",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.youtube.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_end"
+    }
+  ]
+}
