@@ -8,8 +8,10 @@ Sign into the Google accounts you want to use in the same Chrome profile. In
 the Focus home, search, or subscriptions list, press **1–5** to open the home
 feed for the corresponding Google sign-in slot. The numbered slots follow
 Google's sign-in order; the extension does not sign into accounts for you.
-The hints show the selected slot, or `acct default` if YouTube is using its
-default routing. Focus keeps the selected slot on links it opens.
+Focus remembers your last selected slot in this Chrome profile's YouTube
+site storage, even if YouTube removes `authuser` from the address bar. The
+hints show that saved slot (not a verified sign-in), or `acct default` if
+you haven't selected one. Focus adds the saved slot to the links it opens.
 
 Use **Shift+1–5** to quick-open one of the first five videos, or **6–9** for
 the remaining quick-open slots. On the watch page, **1–5** still set playback

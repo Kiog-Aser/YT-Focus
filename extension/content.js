@@ -1,5 +1,12 @@
+const FOCUS_AUTHUSER_KEY = 'yt-focus-authuser';
+
 function getFocusAuthuser() {
-  return new URLSearchParams(location.search).get('authuser');
+  try {
+    const authuser = localStorage.getItem(FOCUS_AUTHUSER_KEY);
+    return /^[0-4]$/.test(authuser) ? authuser : null;
+  } catch (e) {
+    return null;
+  }
 }
 
 function navigateInFocus(path, authuser = getFocusAuthuser()) {
@@ -8,6 +15,14 @@ function navigateInFocus(path, authuser = getFocusAuthuser()) {
     url.searchParams.set('authuser', authuser);
   }
   window.location.href = url.href;
+}
+
+function switchFocusAccount(slot) {
+  const authuser = String(slot - 1);
+  try {
+    localStorage.setItem(FOCUS_AUTHUSER_KEY, authuser);
+  } catch (e) {}
+  navigateInFocus('/', authuser);
 }
 
 // --- Minimal YouTube Overlay UI ---
@@ -69,7 +84,7 @@ function createMinimalOverlay() {
   container.innerHTML = '';
 
   const authuser = getFocusAuthuser();
-  const accountLabel = /^[0-4]$/.test(authuser) ? Number(authuser) + 1 : 'default';
+  const accountLabel = authuser === null ? 'default' : Number(authuser) + 1;
   const headerHTML = `<pre style="color:#f9e2af;font-size:1.2em;margin:0 0 0.4em 0; text-align:center;">(\\_/)( _ )( ___)( _ )/ __)  F O C U S
  \\ /  )(  _  )(__ (( (__   M O D E
  (__) (__) (____)\\___/\\___)
@@ -1181,7 +1196,7 @@ function createMinimalOverlay() {
     const quickKey = ev.shiftKey ? /^Digit([1-5])$/.exec(ev.code)?.[1] : /^[6-9]$/.exec(ev.key)?.[0];
     if (!ev.shiftKey && /^[1-5]$/.test(ev.key)) {
       ev.preventDefault();
-      if (!ev.repeat) navigateInFocus('/', String(Number(ev.key) - 1));
+      if (!ev.repeat) switchFocusAccount(Number(ev.key));
     }
     else if (ev.key==='j' || ev.key==='ArrowDown'){
       if (state.selectedIndex < vids.length-1) {
